@@ -1,0 +1,28 @@
+server:
+  port: 8001
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 10000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: 2000ms
+        max-idle: 10
+        min-idle: 3
+  datasource:
+    url: jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: 1992
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+
