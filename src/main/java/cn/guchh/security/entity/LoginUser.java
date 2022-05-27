@@ -17,12 +17,11 @@ import java.util.stream.Collectors;
  * @author chenhuigu
  */
 @Data
-
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
-
+    // 用户信息
     private User user;
-
+    // 权限信息
     private List<String> permissions;
 
     public LoginUser(User user, List<String> permissions) {
@@ -31,6 +30,7 @@ public class LoginUser implements UserDetails {
     }
 
     // 不进行序列化，方便后续调用
+    // 对象创建的时候初始化一次，避免反复创建
     @JSONField(serialize = false)
     private List<SimpleGrantedAuthority> authorities;
 
@@ -39,8 +39,9 @@ public class LoginUser implements UserDetails {
         if(authorities != null){
             return authorities;
         }
-        return permissions.stream().map(SimpleGrantedAuthority::new).
+        authorities = permissions.stream().map(SimpleGrantedAuthority::new).
                 collect(Collectors.toList());
+        return authorities;
     }
 
     @Override
